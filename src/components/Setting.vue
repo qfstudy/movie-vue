@@ -6,7 +6,7 @@
         <span>昵称</span>
         <input 
           type="text" 
-          v-model="inputNewUserName"   
+          v-model.trim="inputNewUserName"   
           spellcheck="false"         
         >       
       </div>
@@ -15,7 +15,7 @@
         <textarea 
           spellcheck="false" 
           placeholder="个人简介"
-          v-model="inputNewIntroduction"
+          v-model.trim="inputNewIntroduction"
         > 
         </textarea>        
       </div>
@@ -32,7 +32,7 @@
         <span>博客</span>
         <input 
           type="text" 
-          v-model="inputNewBlog" 
+          v-model.trim="inputNewBlog" 
           spellcheck="false"
           placeholder="http://你的博客网址"
         >        
@@ -40,8 +40,9 @@
       <div class="edit-user-email">
         <span>电子邮箱</span>
         <input 
-          type="text" 
-          v-model="inputNewEmail"
+          type="email" 
+          name="email"
+          v-model.trim="inputNewEmail"
           spellcheck="false" 
         >        
       </div>
@@ -117,12 +118,17 @@ export default {
         console.log(res)
         this.$root.tooltip('修改成功',2)
         if(res.code===201){
-          document.cookie = 'token=;expires=Thu, 01-Jan-1970 00:00:01 GMT'
-          document.cookie = `token=${res.token};max-age=${10*24*60*60}`
+          // console.log('document.cookie setting set')
+          // document.cookie = `token=${res.token};max-age=${10*24*60*60};`
+          sessionStorage.setItem('token',res.token)
           localStorage.setItem('userName',this.inputNewUserName)          
         }        
         this.userName = this.inputNewUserName
-        this.$router.push({name: 'Mypage',params:{userName: this.userName}})
+        let timer=setTimeout(()=>{
+          this.$router.push({name: 'Mypage',params:{userName: this.userName}})
+          clearTimeout(timer)
+        },1000)
+        // this.$router.push({name: 'Mypage',params:{userName: this.userName}})
       }).catch(e=>{
         console.log(e)
         this.$root.tooltip(e.message,2)
@@ -130,6 +136,10 @@ export default {
     }
   },
   mounted () { 
+    if (!localStorage.userName && !sessionStorage.token) {
+      this.$router.push({path:'/signin'})
+      return
+    } 
     this.userName=localStorage.userName 
     this.getUserInfo()
   }
@@ -188,6 +198,7 @@ export default {
         text-align: center;
         border-radius: 10px;
         margin-top: 20px;
+        cursor: pointer;
       }
     }    
   }

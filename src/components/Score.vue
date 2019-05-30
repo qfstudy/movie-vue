@@ -73,8 +73,11 @@ export default {
     },
     // 得到当前的分数对五角星加颜色
     async clickGetScore(){
+      if(!sessionStorage.token){
+        return
+      }
       await getScore(this.movieId,this.userName).then(res=>{
-        // console.log(res)
+        console.log(res)
         if(res.code===200 || res.code===201){
           let ulEle=document.querySelector('.score-wrapper')
           let AllLi = ulEle.children      
@@ -137,7 +140,11 @@ export default {
       return childrenArr
     },
     // 点击五角星加类名以及保存到数据库中
-    clickAddScoreClass(event){        
+    clickAddScoreClass(event){   
+      if(!sessionStorage.token){
+        this.$root.tooltip('请先登录再评价',1)
+        return
+      }     
       if(!this.clickFlat){
         this.result1=this.preAllElement(event)
         this.result1.forEach(item=>{
@@ -163,6 +170,7 @@ export default {
       this.clickSaveScore() 
     },
     mouseEnter(event){
+      if(!sessionStorage.token){return}
       this.clearScoreColor()
       let target = event.target
       this.result3=this.preAllElement(event)

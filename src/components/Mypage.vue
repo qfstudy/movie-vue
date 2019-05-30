@@ -21,15 +21,28 @@
         </div> 
         <div class="github">
           <span>Github:</span>
-          <a :href="userData.github" target="_black">{{userData.github}}</a>     
+          <a :href="userData.github" target="_black" v-if="userData.github">
+            {{userData.github}}
+          </a>
+          <router-link v-else to="/setting">     
+            <input type="text" placeholder="添加Github链接">   
+          </router-link>   
         </div>
         <div class="blog">
           <span>我的博客:</span>
-          <a :href="userData.github" target="_black">{{userData.blog}}</a>      
+          <a :href="userData.blog" target="_black" v-if="userData.blog">
+            {{userData.blog}}
+          </a>
+          <router-link v-else to="/setting">
+            <input type="text" placeholder="添加博客网址"> 
+          </router-link>     
         </div>
         <div class="email">
           <span>我的邮箱:</span>
-          <span>{{userData.email}}</span>      
+          <span v-if="userData.email">{{userData.email}}</span> 
+          <router-link v-else to="/setting">
+            <input type="text"  placeholder="添加邮箱">  
+          </router-link>   
         </div>       
       </div>      
     </section>
@@ -46,7 +59,8 @@
       <div class="user-had-comment">
         <p class="title">{{userName}}评论过· · · · · ·({{classifyCommentsLength}})部</p>
         <ul>
-          <li v-for="(item,index) in classifyComments" :key="index">
+          <li v-if="classifyCommentsLength<1">还没有评论</li>
+          <li v-for="(item,index) in classifyComments" :key="index" v-else>
             <router-link :to="{name: 'Detail',params:{id:item[0].movieid}}" class="coverimage-moviename">
               <span class="mypage-coverimage"><img :src="item[0].coverimage"></span>
               <span class="movie-name">{{item[0].movieName}}</span>
@@ -57,7 +71,8 @@
       <div class="user-had-comment">
         <p class="title">{{userName}}评价过· · · · · ·({{allScore.length}})部</p>
         <ul>
-          <li v-for="item in allScore" :key="item.id">
+          <li v-if="allScore.length<1">还没有任何评价</li>
+          <li v-for="item in allScore" :key="item.id" v-else>
             <router-link :to="{name: 'Detail',params:{id:item.movieid}}" class="coverimage-moviename">
               <span class="mypage-coverimage"><img :src="item.coverimage"></span>
               <span class="movie-name">{{item.movieName}}</span>
@@ -68,7 +83,8 @@
       <div class="user-had-comment">
         <p class="title">{{userName}}的收藏· · · · · ·({{allCollection.length}})部</p>
         <ul>
-          <li v-for="item in allCollection" :key="item.id">
+          <li v-if="allCollection.length<1">还没有任何收藏</li>
+          <li v-for="item in allCollection" :key="item.id" v-else>
             <router-link :to="{name: 'Detail',params:{id:item.movieid}}" class="coverimage-moviename">
               <span class="mypage-coverimage"><img :src="item.coverimage"></span>
               <span class="movie-name">{{item.movieName}}</span>
@@ -81,7 +97,7 @@
 </template>
 
 <script>
-import {userAllComment, uploadAvatar, editUserName,getUserInfo,getUserAllScore,getUserCollection} from '../api/fetchData.js'
+import {userAllComment, uploadAvatar,getUserInfo,getUserAllScore,getUserCollection} from '../api/fetchData.js'
 import Mheader from './common/Mheader.vue'
 
 export default {
@@ -152,10 +168,10 @@ export default {
     },
     // 初始化数据
     async initUserData(){
-      if (!localStorage.userName) {
-        this.$router.push({path:'/signin'})
-        return
-      }     
+      // if (!localStorage.userName && !sessionStorage.token) {
+      //   this.$router.push({path:'/signin'})
+      //   return
+      // }     
       this.getUserComment()
       this.getUserInfo() 
       this.getUserScore()
@@ -171,7 +187,6 @@ export default {
         this.classifyComments[value.movieName].push(value)
       })      
       this.classifyCommentsLength=n
-      console.log(n)
     },
     
     // 上传头像
@@ -266,11 +281,13 @@ export default {
         }
       }
       .user-name-wrapper{
+        // display: flex;
+        // flex-direction: column;
         padding-left: 100px; 
         font-size: 18px;       
         .user-name{
           span{
-            font-size: 22px;
+            font-size: 20px;
           }
           .signup-time{
             font-size: 14px;
@@ -281,6 +298,14 @@ export default {
           padding: 5px 0;
           a{
             color: #fbbf7b;
+          }
+          input{
+            border: 1px solid red;
+            border: none;
+            padding: 6px;
+          }
+          input:focus{
+            outline: none;
           }
         }
       }      

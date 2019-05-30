@@ -12,7 +12,8 @@
         <router-link to="/" class="link-homepage">
           <span class="homepage-text">首页</span>
         </router-link> 
-        <span class="signin-user">{{signinUserName}}</span>
+        <span class="signin-user" v-if="isToken">{{signinUserName}}</span>
+        
         <vi-select class="vi-select"></vi-select>
       </span> 
     </section>   
@@ -25,7 +26,8 @@ export default {
   name: 'Mheader',
   data(){
     return{
-      signinUserName: ''
+      signinUserName: '',
+      isToken: ''
     }
   },
   components:{
@@ -39,9 +41,10 @@ export default {
     // 登出
     signout () {
       this.$root.tooltip('登出成功',2)
+      sessionStorage.removeItem('token')
       localStorage.removeItem('userName')   
       localStorage.removeItem('avatar')  
-      document.cookie = 'token=;expires=Thu, 01-Jan-1970 00:00:01 GMT'
+      // document.cookie = 'token=;expires=Thu, 01-Jan-1970 00:00:01 GMT'
       let timer=setTimeout(()=>{
         this.$router.push({path:'/'})
         clearTimeout(timer)
@@ -66,6 +69,7 @@ export default {
     }
   },
   mounted(){
+    this.isToken=sessionStorage.token
     this.signinUserName=localStorage.userName
     this.eventBus()
   }

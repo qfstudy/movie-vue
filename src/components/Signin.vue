@@ -73,8 +73,9 @@
           if (res.code === 200) {
             this.$root.tooltip(res.message,2)
             this.$router.push({name: 'Home'})
-            console.log('signin: '+res.token)
-            document.cookie = `token=${res.token};max-age=${10*24*60*60}`
+            // console.log('signin: '+res.token)
+            sessionStorage.setItem('token',res.token)
+            // document.cookie = `token=${res.token};max-age=${10*24*60*60};`
             localStorage.setItem('userName', res.data.userName)
             localStorage.setItem('avatar', res.data.avatar)
           } else {
@@ -95,7 +96,7 @@
       }
     },
     mounted() {
-      if (localStorage.userName && localStorage.userName !== '') {
+      if (localStorage.userName && localStorage.userName !== '' && sessionStorage.token && sessionStorage.token !== '') {
         this.$router.push('/')
       }
       this.verifyCodeUrl = url + '/images/yzm.jpg'

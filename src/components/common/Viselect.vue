@@ -6,11 +6,11 @@
       </svg>
     </div>
     <ul id="sel-option" class="sel-option" @click="clickHideLi($event)">
-      <li data-flag="mypage" class="item">我的主页</li>
-      <li data-flag="signup" class="item" v-if="!userName">注册</li>
-      <li data-flag="signin" class="item" v-if="!userName">登录</li>
-      <li data-flag="setting" class="item" v-if="userName">设置</li>
-      <li data-flag="signout" class="item" v-if="userName">登出</li>
+      <li data-flag="mypage" class="item" v-if="userName&&token">我的主页</li>
+      <li data-flag="signup" class="item" v-if="!token">注册</li>
+      <li data-flag="signin" class="item" v-if="!token">登录</li>
+      <li data-flag="setting" class="item" v-if="userName&&token">设置</li>
+      <li data-flag="signout" class="item" v-if="userName&&token">登出</li>
     </ul>
   </div>
 </template>
@@ -21,7 +21,8 @@ export default {
   data(){
     return{
       flag: false,
-      userName: ''
+      userName: '',
+      token: ''
     }
   },
   methods:{
@@ -86,6 +87,7 @@ export default {
     }
   },
   mounted(){
+    this.token=sessionStorage.token
     this.userName=localStorage.userName
     this.cllckHideList()
   }

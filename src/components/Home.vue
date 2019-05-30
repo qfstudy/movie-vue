@@ -17,7 +17,7 @@
         </router-link>
       </div>
       <div v-if="userName" class="vi-select-wrapper">
-        <span>{{userName}}</span>
+        <span v-if="isToken">{{userName}}</span>
         <vi-select class="vi-select"></vi-select>
       </div>
       <div class="user-homepage" @click="linkToUserPage" v-else>
@@ -76,6 +76,7 @@ export default {
     return {
       lists: '',
       userName: null,
+      isToken: '',
       eledata: [
         {label: '全部',name: 'all',icon: '<use xlink:href="#icon-all"></use>',id: '4'},
         {label: '电影',name: 'movie',icon: '<use xlink:href="#icon-movie"></use>',id: '0'},
@@ -110,7 +111,8 @@ export default {
       this.$root.tooltip('登出成功',2)
       localStorage.removeItem('userName')   
       localStorage.removeItem('avatar')  
-      document.cookie = 'token=;expires=Thu, 01-Jan-1970 00:00:01 GMT'
+      // document.cookie = 'token=;expires=Thu, 01-Jan-1970 00:00:01 GMT'
+      sessionStorage.removeItem('token')
       let timer=setTimeout(()=>{
         this.$router.push({path:'/'})
         clearTimeout(timer)
@@ -129,6 +131,7 @@ export default {
     }
   },
   mounted () {
+    this.isToken=sessionStorage.token
     this.userName=localStorage.userName
     this.initData()
     this.eventBusFn()

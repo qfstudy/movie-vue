@@ -139,7 +139,7 @@ export default {
     })
     this.$root.bus.$on('emitChangeCollection',()=>{
       this.getMovieData()
-    })
+    })    
   }
 }
 </script>

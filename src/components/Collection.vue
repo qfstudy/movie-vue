@@ -25,6 +25,10 @@ export default {
   },
   methods: {
     async saveCollectionToSql(){
+      if(!sessionStorage.token){
+        this.$root.tooltip('请先登录，再收藏',1)
+        return
+      }  
       await saveCollection(this.userName,this.movieName,this.coverimage,this.movieid).then((res)=>{
         // console.log(res)        
         this.$root.bus.$emit('emitChangeCollection')
@@ -32,6 +36,9 @@ export default {
       })
     },
     async getUserMovieCollection(){
+      if(!sessionStorage.token){
+        return
+      }  
       await getUserMovieCollection(this.userName,this.movieid).then(res=>{
         if(res.code===200){
           this.iconcolor=true

@@ -1,15 +1,14 @@
 import axios from 'axios'
-export const url = 'http://localhost:3002';
+export const url = 'http://localhost:3002'
 let $axios = axios.create({
   baseURL: url + '/movie/',
+  
 })
 
-function getCookie(name) {
-  // console.log("name: "+name)
-  let arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)")
-  if (arr = document.cookie.match(reg)){
-    // console.log("token: "+document.cookie)
-    return unescape(arr[2])
+function getToken() {
+  let token=sessionStorage.getItem('token')
+  if (token){
+    return token
   }
   else{
     return null
@@ -17,14 +16,15 @@ function getCookie(name) {
 }
 
 function $fetch(method, url, data) {
+  let token = getToken()
   return new Promise((reslove, reject) => {
     $axios({
       method,
       url,
-      data: data,
       headers: {
-        Authorization: getCookie('token')
-      }
+        Authorization: token
+      },
+      data: data
     }).then(res => {
       // console.log(res)
       let data = res.data
