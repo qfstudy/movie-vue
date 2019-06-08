@@ -77,7 +77,7 @@ export default {
   .search-container{
     .search{
       display: flex;
-      justify-content: space-between;
+      // justify-content: space-between;
       align-items: center;
       padding: 4px 0;
       border-bottom: 1px solid #ddd;
@@ -92,6 +92,7 @@ export default {
         display: flex;
         align-items: center;
         margin-right: 20px;
+        margin-left: 25%;
         input{
           border: 1px solid #333;
           border-radius: 30px;
@@ -117,18 +118,18 @@ export default {
     .search-result{
       .result-list{
         li{
-          padding: 10px;
+          padding: 8px;
           border-bottom: 1px solid #ddd; 
           .result-name{
             padding-left: 10px;
-            font-size: 1.4em;
+            font-size: 18px;
             color: #a59fac;
           }
         }
       }
       .not-find{
         padding: 10px;
-        font-size: 1.8em;
+        font-size: 18px;
       }
     }
   }
