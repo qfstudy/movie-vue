@@ -126,7 +126,7 @@ export default {
     //获取头像 获取用户信息
     async getUserInfo(){
       await getUserInfo(this.userName).then(res => {
-        console.log('res userinfo',res)
+        // console.log('res userinfo',res)
         this.userData=res.data
         this.avatar = res.data.avatar
         this.userTime=res.data.time.split(' ')[0]
@@ -138,7 +138,7 @@ export default {
     // 获取用户的评论
     async getUserComment(){
        await userAllComment(this.userName).then(res =>  {  
-        console.log(res)    
+        // console.log(res)    
         this.comments = res.data   
         this.classComment()
       }).catch(e => {  
@@ -149,7 +149,7 @@ export default {
     // 获取用户评价的数据
     async getUserScore(){
       await getUserAllScore(this.userName).then(res=>{
-        console.log(res)
+        // console.log(res)
         this.allScore=res.data
       }).catch(e => {
         console.log(e)  
@@ -159,7 +159,7 @@ export default {
     // 获取用户收藏的数据
     async getUserCollection(){
       await getUserCollection(this.userName).then(res=>{
-        console.log(res)
+        // console.log(res)
         this.allCollection=res.data
       }).catch(e => { 
         console.log(e)

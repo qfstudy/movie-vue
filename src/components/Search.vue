@@ -61,7 +61,7 @@ export default {
     searchResult(){
       if (this.inputSearch !== '') {
         search(this.inputSearch).then(res=>{
-          console.log(res)         
+          // console.log(res)         
           this.results = res.data
         })
       }else{

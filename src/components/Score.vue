@@ -77,7 +77,7 @@ export default {
         return
       }
       await getScore(this.movieId,this.userName).then(res=>{
-        console.log(res)
+        // console.log(res)
         if(res.code===200 || res.code===201){
           let ulEle=document.querySelector('.score-wrapper')
           let AllLi = ulEle.children      

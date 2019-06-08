@@ -115,7 +115,7 @@ export default {
         this.userName
       )
       .then(res=>{
-        console.log(res)
+        // console.log(res)
         this.$root.tooltip('修改成功',2)
         if(res.code===201){
           // console.log('document.cookie setting set')

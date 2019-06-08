@@ -87,14 +87,14 @@ export default {
     async initConment(){
       let movieId = this.$route.params.id
       await getmovieComment(movieId).then( res =>  {
-        console.log(res)
+        // console.log(res)
         this.allComments = res.data
       }).catch(e => {
         this.$root.tooltip(e.message,2)
       }) 
     },
     async deleteComment(commentId){
-      console.log(commentId)
+      // console.log(commentId)
       await deleteComment(commentId).then((res)=>{
         if(res.code===200){
           this.$root.tooltip(res.message,2)
