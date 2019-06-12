@@ -1,6 +1,6 @@
 <template>
   <div class="signin-wrapper">
-    <mheader></mheader>
+    <m-header></m-header>
     <section class="signin-signup-tab">        
       <span class="signin">登录</span>
       <span class="signup-point">·</span>
@@ -37,7 +37,7 @@
 
 <script>
   import {signin,verifyCodeChange,url} from '../api/fetchData.js'
-  import Mheader from './common/Mheader.vue'
+  import mHeader from './common/Mheader.vue'
 
   export default {
     name: 'Signin',
@@ -51,7 +51,7 @@
       }
     },
     components:{
-      Mheader
+      mHeader
     },
     methods: {
       linkToSignup(){
@@ -114,8 +114,8 @@
       margin-top: 80px;
       .signin{
         padding-bottom: 10px;
-        color: #ec6149;
-        border-bottom: 3px solid #ec6149;
+        color: #007fff;
+        border-bottom: 3px solid #007fff;
       }
       .signup-point{
         margin-top: 8px;
@@ -136,7 +136,7 @@
           border-radius: 5px;
           padding: 6px 8px;
           margin: 8px 0;
-          height: 32px;
+          // height: 32px;
           width: 280px;
           font-size: 22px;
         }

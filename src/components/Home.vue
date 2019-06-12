@@ -1,30 +1,7 @@
 <template>
   <div class="home-container">
+    <m-header class="vi-select"></m-header>
     <section class="search">
-      <div class="icon-github-wrapper">
-        <a href="https://github.com/qfstudy/movie-vue" target="_blank">
-          <svg class="icon-github">
-            <use xlink:href="#icon-github"></use>
-          </svg>
-        </a>
-      </div>
-      <div class="icon-search-wrapper">
-        <router-link to="/search" class="link-search">
-          <input type="text" placeholder="搜索">
-          <svg class="icon-search">
-            <use xlink:href="#icon-search"></use>
-          </svg>
-        </router-link>
-      </div>
-      <div v-if="userName" class="vi-select-wrapper">
-        <span v-if="isToken">{{userName}}</span>
-        <vi-select class="vi-select"></vi-select>
-      </div>
-      <div class="user-homepage" @click="linkToUserPage" v-else>
-        <svg class="icon-me">
-          <use xlink:href="#icon-me"></use>
-        </svg>
-      </div>
     </section>
     <section class="movie-wrapper" v-for="item in eledata" :key="item.label">
       <div class="movie-bar">
@@ -68,7 +45,7 @@
 
 <script>
 import {allMovieData} from '../api/fetchData'
-import viSelect from './common/Viselect.vue'
+import mHeader from './common/Mheader.vue'
 
 export default {
   name: 'home',
@@ -87,7 +64,7 @@ export default {
     }
   },
   components:{
-    viSelect
+    mHeader
   },
   methods:{
     linkToUserPage(){
@@ -143,62 +120,8 @@ export default {
   .home-container{
     background: #eee;
     font-size: 18px;
-    .search{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .vi-select{
       background: #fff;
-      border-bottom: 1px solid #eee;
-      .icon-github-wrapper{
-        margin-left: 8px;
-        .icon-github{
-          width: 3em;
-          height: 3em;
-          fill: #d17811;
-        }
-      }
-      .icon-search-wrapper{
-        .link-search{
-          input{
-            display: inline-block;
-            border: 1px solid #333;
-            border-radius: 30px;
-            padding: 6px 10px;
-            font-size: 22px;
-          }      
-          input:focus{
-            outline: none;
-          }
-          ::placeholder{
-            font-size: 16px;
-            color: #bbb;
-          }
-          .icon-search{
-            width: 1.3em;
-            height: 1.3em;
-            fill: #a59fac;
-            margin-left: -1.8em;
-            vertical-align: middle;
-          }
-        }
-      }
-      .vi-select-wrapper{
-        display: flex;
-        align-items: center;
-        padding-right: 10px;
-        span{
-          color: #fbbf7b;
-          padding-right: 10px;
-        }
-      }
-      .user-homepage{
-        padding-right: 10px;
-        .icon-me{
-          width: 2em;
-          height: 2em;
-          fill: #fbbf7b;
-        }
-      }
     }
     .movie-wrapper{
       background: #fff;

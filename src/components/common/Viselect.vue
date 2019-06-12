@@ -7,8 +7,6 @@
     </div>
     <ul id="sel-option" class="sel-option" @click="clickHideLi($event)">
       <li data-flag="mypage" class="item" v-if="userName&&token">我的主页</li>
-      <li data-flag="signup" class="item" v-if="!token">注册</li>
-      <li data-flag="signin" class="item" v-if="!token">登录</li>
       <li data-flag="setting" class="item" v-if="userName&&token">设置</li>
       <li data-flag="signout" class="item" v-if="userName&&token">登出</li>
     </ul>
@@ -42,17 +40,11 @@ export default {
       let ev = e || window.event
       let target = ev.target || ev.srcElement
       if (target && target.nodeName === 'LI') {
-        console.dir(target.dataset.flag)
+        // console.dir(target.dataset.flag)
         let dataFlag=target.dataset.flag
         switch(dataFlag){
           case 'mypage':            
             this.$root.bus.$emit('emitMypage')
-            break
-          case 'signup':
-            this.$root.bus.$emit('emitSignup')
-            break
-          case 'signin':
-            this.$root.bus.$emit('emitSignin')
             break
           case 'setting':
             this.$root.bus.$emit('emitSetting')
@@ -101,10 +93,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: 16px;
     cursor: pointer;
     .icon-select{
       width: 30px;
       height: 30px;
+      fill: #bbb;
     }
   }
   .sel-option {
@@ -114,7 +108,7 @@ export default {
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #fff;
-    right: 0px;
+    right: 16px;
     li {
       padding: 5px;
       font-size: 14px;

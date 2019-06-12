@@ -56,7 +56,7 @@
               :movieid="movieId" 
               :movieName="lists.moviename" 
               :coverimage="lists.coverimage"
-              class="test"
+              class="click-collection-icon"
             >
             </collection>
           </span>
@@ -228,6 +228,9 @@ export default {
               color: #a59fac;
               margin-right: 10px;
             }
+            .click-collection-icon{
+              cursor: pointer;
+            }
           }
           .collection-number{
             font-size: 14px;
@@ -263,6 +266,7 @@ export default {
         font-size: 15px;
         color: #a59fac;
         margin-left: 20px;
+        cursor: pointer;
       }
     }
   }

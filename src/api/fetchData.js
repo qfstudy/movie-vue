@@ -1,8 +1,8 @@
 import axios from 'axios'
+// export const url = 'http://madmin.qifei.site'
 export const url = 'http://localhost:3002'
 let $axios = axios.create({
   baseURL: url + '/movie/',
-  
 })
 
 function getToken() {
